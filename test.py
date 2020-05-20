@@ -5,7 +5,7 @@ import numpy as np
 model=tf.keras.models.load_model('mnist_classifier.h5')
 
 #reading the image
-img=cv2.imread(r'C:\Users\yusuf\Downloads\my projects\Digit_recogniser\custom test\test.png')
+img=cv2.imread(r'C:\Users\yusuf\Downloads\my projects\Digit_recogniser\custom test\hand.jpg')
 
 # changing the color channel
 img_predict=cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
