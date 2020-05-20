@@ -5,17 +5,15 @@ from kivy.uix.button import Button
 from kivy.uix.label import Label
 from kivy.uix.widget import Widget
 from kivy.uix.boxlayout import BoxLayout
-from kivy.graphics import Rectangle,Line
-from kivy.config import Config
+from kivy.graphics import Rectangle
 from kivy.graphics import Color
-from kivy.clock import Clock
-from functools import partial
 from kivy.core.window import Window
 import numpy as np
 import cv2
 import tensorflow as tf
 import os
 
+#loading the model
 model=tf.keras.models.load_model('mnist_classifier.h5')
 
 
@@ -54,9 +52,12 @@ class Interface(BoxLayout):
         self.add_widget(self.second)
         self.add_widget(self.wid)
 
+
     def guess(self,instance):
 
         Window.screenshot(name='sample.png')
+
+        # preprocessing the image to be fed
         image=cv2.imread('sample0001.png')
         image=image[51:,:]
 
@@ -68,8 +69,8 @@ class Interface(BoxLayout):
 
         prediction=model.predict(img_predict)
         # print(prediction)
-
         guessed_number=np.argmax(prediction)
+
         print('Guess: ',guessed_number)
 
         self.second.remove_widget(self.Guess)
@@ -80,6 +81,7 @@ class Interface(BoxLayout):
         if os.path.exists('sample0001.png'):
             os.remove('sample0001.png')
 
+
     def create_canvas(self):
         with self.wid.canvas:
             Color(1, 1, 1, 1, mode='rgba')
@@ -89,6 +91,7 @@ class Interface(BoxLayout):
     def reset_grid(self, instance):
         self.wid.canvas.clear()
         self.create_canvas()
+
 
     def on_touch_down(self, touch):
         super().on_touch_down(touch)
@@ -106,6 +109,7 @@ class Interface(BoxLayout):
         except KeyError:
             pass
 
+
     def on_touch_move(self, touch):
         try:
             row,col=self.corrected_row[touch.pos[1] // self.pos_factor],int(touch.pos[0] // self.pos_factor)
@@ -120,11 +124,9 @@ class Interface(BoxLayout):
             pass
 
 
-interface = Interface()
-
 class A_starApp(App):
     def build(self):
-        return interface
+        return Interface()
 
 
 # ----------------------------------------------------main------------------------------------------------------------------
