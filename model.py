@@ -55,7 +55,7 @@ metrics[['loss','val_loss']].plot()
 
 # testing/predicting
 
-from sklearn.metrics import classification_report,confusion_matrix
+from sklearn.metrics import classification_report
 
 predictions=model.predict_classes(x_test)
 report=classification_report(y_test,predictions)
