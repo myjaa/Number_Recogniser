@@ -1,6 +1,6 @@
 # Number_Recogniser
 
-A simple python app that guess the single digit number you write by using an image classifier trained on MNIST using a CNN.
+A simple python app that recognizes/guesses a single digit number written by the user using an image classifier trained on MNIST using a CNN.
 
 **Libraries used:**
 
